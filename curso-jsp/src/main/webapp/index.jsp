@@ -3,25 +3,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="ISO-8859-1">
-	<title>Curso JSP</title>
+<meta charset="ISO-8859-1">
+<title>Curso JSP</title>
 </head>
 <body>
-		
-<h1>Bem vindo ao curso de JSP</h1>
 
-<%
-out.print("Impressão por java dentro do JSP");
-%>
+	<h1>Bem vindo ao curso de JSP</h1>
 
-<form action="receber-nome.jsp">
+	<%
+	out.print("Impressão por java dentro do JSP");
+	%>
 
-<input name="nome">
-<input name="idade">
-<input type="submit" value="Enviar">
+	<form action="ServletLogin" method="post">
 
-</form>
+		<input name="nome"> 
+		<input name="idade"> 
+		<input type="submit" value="Enviar">
 
-	
+	</form>
+
+
 </body>
 </html>
