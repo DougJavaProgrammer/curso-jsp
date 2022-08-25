@@ -35,43 +35,45 @@ public class ServletLogin extends HttpServlet {
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		String url = request.getParameter("url");
-		
+
 		try {
 
-		if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
-			
-			
-			ModelLogin modelLogin = new ModelLogin();
-			modelLogin.setLogin(login);
-			modelLogin.setSenha(senha);
+			if (login != null && !login.isEmpty() && senha != null && !senha.isEmpty()) {
 
-			if (daoLoginRepository.validarAutenticacao(modelLogin)) {/* Simulando o login */
-				request.getSession().setAttribute("usuario", modelLogin.getLogin());// atributo de sessão
+				ModelLogin modelLogin = new ModelLogin();
+				modelLogin.setLogin(login);
+				modelLogin.setSenha(senha);
 
-				if (url == null || url.equals("null")) {
-					url = "principal/principal.jsp";
+				if (daoLoginRepository.validarAutenticacao(modelLogin)) {/* Simulando o login */
+					request.getSession().setAttribute("usuario", modelLogin.getLogin());// atributo de sessão
 
+					if (url == null || url.equals("null")) {
+						url = "principal/principal.jsp";
+
+					}
+
+					RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+					redirecionar.forward(request, response);
+
+				} else {
+					RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
+					request.setAttribute("msg", "Login ou senha inválida");
+					redirecionar.forward(request, response);
 				}
 
-				RequestDispatcher redirecionar = request.getRequestDispatcher(url);
+			} else {
+				RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
+				request.setAttribute("msg", "Informe o login e senha");
 				redirecionar.forward(request, response);
 
-			} else {
-				RequestDispatcher redirecionar = request.getRequestDispatcher("/index.jsp");
-				request.setAttribute("msg", "Login ou senha inválida");
-				redirecionar.forward(request, response);
 			}
 
-		} else {
-			RequestDispatcher redirecionar = request.getRequestDispatcher("index.jsp");
-			request.setAttribute("msg", "Informe o login e senha");
+		} catch (Exception e) {
+			e.printStackTrace();
+			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
+			request.setAttribute("msg", e.getMessage());
 			redirecionar.forward(request, response);
-
 		}
 
-	}catch (Exception e) {
-		e.printStackTrace();
 	}
-
-}
 }
