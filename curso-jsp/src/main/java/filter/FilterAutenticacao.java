@@ -16,64 +16,61 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = { "/principal/*" }) /* Intercepta todas as requisições que vierem do projeto ou mapeamento */
+@WebFilter(urlPatterns = { "/principal/*" }) /* Interceptas todas as requisiçoes que vierem do projeto ou mapeamento */
 public class FilterAutenticacao implements Filter {
 
 	private static Connection connection;
 
 	public FilterAutenticacao() {
-		super();
 	}
 
-	/* encerra os processos quando o servidor é parado */
-	/* mataria os processos de conexão com o banco */
+	/* Encerra os processo quando o servidor é parado */
+	/* Mataria os processo de conexão com banco */
 	public void destroy() {
 		try {
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	/* intercepta as requisições e a as respostas no sistema */
-	/* tudo que fizemos no sistema, irá passar por aqui */
-	/* exemplo, validação de autenticação */
-	/* dar commit e rolback de transações no bancoo */
-	/* validar e fazer redirecionamento de páginas */
+	/* Intercepta as requisicoes e a as respostas no sistema */
+	/* Tudo que fizer no sistema vai fazer por aqui */
+	/* Validação de autenticao */
+	/* Dar commit e rolback de transaçoes do banco */
+	/* Validar e fazer redirecionamento de paginas */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		try {
-
 			HttpServletRequest req = (HttpServletRequest) request;
 			HttpSession session = req.getSession();
 
 			String usuarioLogado = (String) session.getAttribute("usuario");
 
-			String urlParaAutenticar = req.getServletPath(); /* url que está sendo acessada */
+			String urlParaAutenticar = req.getServletPath();/* Url que está sendo acessada */
 
-			/* Validar se está logado, senão redireciona para a tela de login */
-			if (usuarioLogado == null && !urlParaAutenticar
-					.equalsIgnoreCase("/principal/ServletLogin")) /* condição de não estar logado */ {
-				RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url= " + urlParaAutenticar);
-				request.setAttribute("msg", "Por favor, realize o login");
+			/* Validar se está logado senão redireciona para a tela de login */
+			if (usuarioLogado == null
+					&& !urlParaAutenticar.equalsIgnoreCase("/principal/ServletLogin")) {/* Não está logado */
+
+				RequestDispatcher redireciona = request.getRequestDispatcher("/index.jsp?url=" + urlParaAutenticar);
+				request.setAttribute("msg", "Por favor realize o login!");
 				redireciona.forward(request, response);
-				return; /* para a execução e redireciona para o login */
+				return; /* Para a execução e redireciona para o login */
+
 			} else {
-
 				chain.doFilter(request, response);
-
 			}
-			
-			connection.commit();//deu tudo certo, então comita as alaterações no banco de dados
+
+			connection.commit();/* Deu tudo certo, então comita as alteracoes no banco de dados */
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		
+
 			RequestDispatcher redirecionar = request.getRequestDispatcher("erro.jsp");
 			request.setAttribute("msg", e.getMessage());
 			redirecionar.forward(request, response);
-			
+
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
@@ -82,9 +79,9 @@ public class FilterAutenticacao implements Filter {
 		}
 	}
 
-	/* inicia os processos ou recursos quando o sevidor sobe o projeto */
+	/* Inicia os processo ou recursos quando o servidor sobre o projeto */
+	// inicar a conexão com o banco
 	public void init(FilterConfig fConfig) throws ServletException {
-
 		connection = SingleConnectionBanco.getConnection();
 	}
 
