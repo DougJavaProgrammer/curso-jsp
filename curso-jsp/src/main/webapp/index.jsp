@@ -20,21 +20,35 @@ form {
 	position: absolute;
 	top: 30%;
 	left: 40%;
-	right: 30%;
+	right: 40%;
+	
 }
 
 h5 {
 	position: absolute;
 	top: 20%;
-	right: 30%;
+	right: 40%;
 	left: 40%;
+	font-size: 25px;
+}
+
+.msgInformativa {
+	position: absolute;
+	top: 10%;
+	left: 39.2%;
+	color: #664d03;
+    background-color: #fff3cd;
+    border-color: #ffecb5;
+}
+	
+
 }
 
 button {
 	position: absolute;
 	top: 100%;
-	right: 33%;
-	left: 0%;
+	right: 1%; 
+	left: 1%;
 }
 </style>
 
@@ -48,14 +62,14 @@ button {
 		<input type="hidden" value="<%=request.getParameter("url")%>"
 			name="url">
 
-		<div class="col-md-6">
+		<div class="mb-3">
 			<label class="form-label">Login</label> <input type="text"
 				class="form-control" placeholder="CPF ou E-mail" required="required">
 			<div class="invalid-feedback">Obrigatório informar um login</div>
 			<div class="valid-feedback">Tudo ok por aqui</div>
 			</div>
 									
-			<div class="col-md-6">
+			<div class="mb-3">
 				<label class="form-label">Senha</label> <input type="password"
 					class="form-control" placeholder="admin" required="required">
 					<div class="invalid-feedback">Senha em branco</div>
@@ -67,7 +81,7 @@ button {
 			
 	</form>
 
-	<h4>${msg}</h4>
+	<h4 class="msgInformativa">${msg}</h4>
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
