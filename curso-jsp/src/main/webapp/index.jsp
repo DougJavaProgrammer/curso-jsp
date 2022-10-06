@@ -21,7 +21,6 @@ form {
 	top: 30%;
 	left: 40%;
 	right: 40%;
-	
 }
 
 h5 {
@@ -37,17 +36,15 @@ h5 {
 	top: 10%;
 	left: 39.2%;
 	color: #664d03;
-    background-color: #fff3cd;
-    border-color: #ffecb5;
-}
-	
-
+	background-color: #fff3cd;
+	border-color: #ffecb5;
 }
 
+}
 button {
 	position: absolute;
 	top: 100%;
-	right: 1%; 
+	right: 1%;
 	left: 1%;
 }
 </style>
@@ -67,18 +64,18 @@ button {
 				class="form-control" placeholder="CPF ou E-mail" required="required">
 			<div class="invalid-feedback">Obrigatório informar um login</div>
 			<div class="valid-feedback">Tudo ok por aqui</div>
-			</div>
-									
-			<div class="mb-3">
-				<label class="form-label">Senha</label> <input type="password"
-					class="form-control" placeholder="admin" required="required">
-					<div class="invalid-feedback">Senha em branco</div>
-					<div class="valid-feedback">Tudo ok por aqui também</div>
-			</div>
-			<div class="col-12">
-				<button type="submit" class="btn btn-primary">Acessar</button>
-			</div>
-			
+		</div>
+
+		<div class="mb-3">
+			<label class="form-label">Senha</label> <input type="password"
+				class="form-control" placeholder="admin" required="required">
+			<div class="invalid-feedback">Senha em branco</div>
+			<div class="valid-feedback">Tudo ok por aqui também</div>
+		</div>
+		<div class="col-12">
+			<button type="submit" class="btn btn-primary">Acessar</button>
+		</div>
+
 	</form>
 
 	<h4 class="msgInformativa">${msg}</h4>
